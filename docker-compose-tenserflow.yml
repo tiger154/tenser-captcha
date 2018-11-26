@@ -1,0 +1,16 @@
+version: '2.1'
+services:
+  atd-tenser:
+    build: ./docker/tenserflow
+    container_name: atd-tenser
+    image: tiger154/atd-tenser
+    ports:
+     - "8888:8888"
+    dns:
+     - "8.8.8.8"
+    volumes:
+      - /server/volume/atd-tenser:/tmp
+    working_dir: /tmp
+
+#volumes:
+#    atd-tenser:
