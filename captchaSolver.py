@@ -1,3 +1,4 @@
+# It's not working looks like need to downgrade to python 2.x
 from captcha_solver import CaptchaSolver
 
 CAPTCHA_IMAGE_FOLDER = "target_captcha_images"
