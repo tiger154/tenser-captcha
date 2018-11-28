@@ -14,7 +14,7 @@ HEADLESS = False
 SEARCH_KEYWORD = None
 DOWNLOAD_PATH = os.path.realpath("download")
 
-LOGIN_URL = "https://nid.naver.com/nidlogin.login"
+NAVER_LOGIN_URL = "https://nid.naver.com/nidlogin.login"
 NAVER_ID_TAG_NAME = "id"
 NAVER_PW_TAG_NAME = "pw"
 NAVER_XPATH_LOGIN_BTN = '//*[@id="frmNIDLogin"]/fieldset/input'
@@ -25,8 +25,8 @@ TP_LOGIN_URL = "http://www-dev.targetpick.co.kr/login"
 TP_ID_TAG_NAME = "email"
 TP_PW_TAG_NAME = "password"
 TP_XPATH_LOGIN_BTN = '//*[@id="login-form"]//*[@type="submit"]'
-TP_USER_ID = os.getenv("TARGETPICK_USER_ID")        # NAVER_PASSWORD TARGETPICK_USER_ID
-TP_PASSWORD = os.getenv("TARGETPICK_PASSWORD")      # NAVER_PASSWORD TARGETPICK_USER_ID
+TP_USER_ID = os.getenv("TP_USER_ID")        # NAVER_PASSWORD TARGETPICK_USER_ID
+TP_PASSWORD = os.getenv("TP_PASSWORD")      # NAVER_PASSWORD TARGETPICK_USER_ID
 
 FB_LOGIN_URL = "https://www.facebook.com/"
 FB_ID_TAG_NAME = "email"
@@ -35,7 +35,7 @@ FB_XPATH_LOGIN_BTN = '//*[@id="login_form"]//*[@type="submit"]'
 FB_USER_ID = os.getenv("FB_USER_ID")        # NAVER_PASSWORD TARGETPICK_USER_ID
 FB_PASSWORD = os.getenv("FB_PASSWORD")      # NAVER_PASSWORD TARGETPICK_USER_ID
 
-LOGIN_TYPE = "fb"
+LOGIN_TYPE = "tp"
 # ============
 
 
@@ -49,7 +49,7 @@ class LoginData:
         self.password = password
 
 
-class NaverSimpleLogin:
+class SimpleLoginDaemon:
     def __init__(self):
         self.driverPath = os.path.realpath('/program/chromedriver_win32/chromedriver.exe')
         self.driver = None
@@ -89,7 +89,7 @@ class NaverSimpleLogin:
             if type == "fb":
                 login_data = LoginData(FB_LOGIN_URL, FB_ID_TAG_NAME, FB_PW_TAG_NAME, FB_XPATH_LOGIN_BTN, FB_USER_ID, FB_PASSWORD)
             elif type == "naver":
-                login_data = LoginData(LOGIN_URL, NAVER_ID_TAG_NAME, NAVER_PW_TAG_NAME, NAVER_XPATH_LOGIN_BTN, NAVER_USER_ID, NAVER_PASSWORD)
+                login_data = LoginData(NAVER_LOGIN_URL, NAVER_ID_TAG_NAME, NAVER_PW_TAG_NAME, NAVER_XPATH_LOGIN_BTN, NAVER_USER_ID, NAVER_PASSWORD)
             else:
                 login_data = LoginData(TP_LOGIN_URL, TP_ID_TAG_NAME, TP_PW_TAG_NAME, TP_XPATH_LOGIN_BTN, TP_USER_ID, TP_PASSWORD)
 
@@ -139,7 +139,7 @@ class NaverSimpleLogin:
 
 
 def main():
-    daemon = NaverSimpleLogin()
+    daemon = SimpleLoginDaemon()
     daemon.login(LOGIN_TYPE)
     input("[*] Press Enter to exit")
 
